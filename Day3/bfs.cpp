@@ -63,7 +63,6 @@ void BFS(int i, int j)
 
         for (int l= p1.x-1; l<=p1.x+1; l++ )
         {
-            // printf("Hello Outer\n"); // BUGGER
             for (int m= p1.y-1; m<=p1.y+1; m++)
             {
                 if ( (isValid(l, m) == 1) && (img_in.at<uchar>(l, m) < thresh) && (isVisited[l][m] == 0) )
