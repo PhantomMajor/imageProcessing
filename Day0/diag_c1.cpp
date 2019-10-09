@@ -1,35 +1,69 @@
 #import "opencv2/highgui/highgui.hpp"
 #import "opencv2/imgproc/imgproc.hpp"
 #import "opencv2/core/core.hpp"
-
-using namespace cv;
-
-int main ()
-{
-    // image of dimensions 500 x 500
-    Mat img(100, 100, CV_8UC3, schar(0));
-    namedWindow("win", WINDOW_NORMAL);
-
-    int rows = img.rows;
-    int cols = img.cols;
-
-    for (int i= 0; i< rows; i++)
-    {
-        // vary i(row index) from 0 to rows(100)
-        for (int j= 0; j< cols-i; j++)
-        {
-            // vary j(col index) from 0 to (diagonal element)
-            img.at<Vec3b>(i, j) = {0, 0, 255};// red color
-        }
-        for  (int j=cols-i; j< cols; j++)
-        {
-            // vary j(col index) from last col to diagonal element
-            img.at<Vec3b>(i, j) = {0, 255, 255};// yellow color
-        }
-    }
-
-    imshow("win", img);
-    waitKey(0);
-
-    return 0;
+#include <bits/stdc++.h> 
+// C++ implementation of the approach 
+using namespace std; 
+// Function that returns true if white wins 
+bool whiteWins(int rowW, int colW, int rowB, int colB) 
+{ 
+    int white = 0, black = 0; 
+  
+    while (1) { 
+  
+        // If white can move 
+        if (rowW != 8) { 
+  
+            // If white pawn can kill black pawn 
+            // White wins 
+            if (rowB == rowW + 1 
+                && (colB == colW - 1 || colB == colW + 1)) 
+                return true; 
+  
+            // Make the move forward 
+            else
+                rowW++; 
+        } 
+  
+        // White has no moves 
+        // White loses 
+        else
+            return false; 
+  
+        // If black can move 
+        if (rowB != 1) { 
+  
+            // If black pawn can kill white pawn 
+            // White loses 
+            if (rowB == rowW + 1 
+                && (colB == colW - 1 || colB == colW + 1)) 
+                return false; 
+  
+            // Make the move forward 
+            else
+                rowB--; 
+        } 
+  
+        // Black has no moves 
+        // White wins 
+        else
+            return true; 
+    } 
+  
+    // If white has got more moves 
+    if (white > black) 
+        return true; 
+  
+    return false; 
+} 
+  
+// Driver code 
+int main() 
+{ 
+    int rowW = 2, colW = 2, rowB = 3, colB = 3; 
+    if (whiteWins(rowW, colW, rowB, colB)) 
+        cout << "White"; 
+    else
+        cout << "Black"; 
+    return 0; 
 }
